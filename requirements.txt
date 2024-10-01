@@ -1,0 +1,9 @@
+dnspython==2.6.1
+pyaes==1.6.1
+pymongo==4.9.1
+pypng==0.20220715.0
+Pyrogram==2.0.106
+PySocks==1.7.1
+qrcode==7.4.2
+TgCrypto==1.2.5
+typing_extensions==4.12.2
