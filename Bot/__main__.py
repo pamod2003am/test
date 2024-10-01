@@ -3,7 +3,6 @@ from typing import Union, Optional
 from pyrogram.types import Message
 from .WaClient import StartWaClient
 from .Config import TOKEN , API_ID , API_HASH
-import asycio
 import os
 
 class _Bot(Client):
