@@ -3,9 +3,8 @@ from typing import Union, Optional
 from pyrogram.types import Message
 from .WaClient import StartWaClient
 from .Config import TOKEN , API_ID , API_HASH
-import subprocess
 import asyncio
-import os
+from threading import Thread
 from flask import Flask
 
 app = Flask(__name__)
@@ -35,12 +34,13 @@ class _Bot(Client):
         await asyncio.create_task(self.pass_health_check())
         
     async def pass_health_check(self):
-        # subprocess.Popen(["node", "Bot/WaClient/health.js"])
-        app.run(port=8443)
+        # Start Flask app in a new thread
+        thread = Thread(target=lambda: app.run(port=8443, use_reloader=False))
+        thread.daemon = True  # Daemon thread to ensure it exits with the program
+        thread.start()
 
     async def stop(self, *args):
         print(f"{self._bot.first_name} - @{self._bot.username} Stoped")
         await super().stop()
 
 _Bot().run()
-
