@@ -3,9 +3,9 @@ from typing import Union, Optional
 from pyrogram.types import Message
 from .WaClient import StartWaClient
 from .Config import TOKEN , API_ID , API_HASH
-import os
 import subprocess
-
+import asyncio
+import os
 
 class _Bot(Client):
     def __init__(self):
@@ -24,6 +24,8 @@ class _Bot(Client):
         await super().start()
         self._bot = await self.get_me()
         print(f"{self._bot.first_name} - @{self._bot.username} Started")
+        await asyncio.create_task(self.pass_health_check())
+    async def pass_health_check(self):
         subprocess.Popen(["node", "Bot/WaClient/health.js"])
 
     async def stop(self, *args):
