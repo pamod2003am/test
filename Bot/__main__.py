@@ -27,7 +27,7 @@ class _Bot(Client):
         await super().start()
         self._bot = await self.get_me()
         print(f"{self._bot.first_name} - @{self._bot.username} Started")
-        # await asyncio.create_task(self.pass_health_check())
+        await asyncio.create_task(self.pass_health_check())
         
     async def pass_health_check(self):
         # self.flask_process = subprocess.Popen(
