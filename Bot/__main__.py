@@ -35,7 +35,7 @@ class _Bot(Client):
         
     async def pass_health_check(self):
         # Start Flask app in a new thread
-        thread = Thread(target=lambda: app.run(host="0.0.0.0", port=8443, use_reloader=False)))
+        thread = Thread(target=lambda: app.run(host="0.0.0.0", port=8443, use_reloader=False))
         thread.daemon = True  # Daemon thread to ensure it exits with the program
         thread.start()
 
