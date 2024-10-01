@@ -30,9 +30,14 @@ class _Bot(Client):
         await asyncio.create_task(self.pass_health_check())
         
     async def pass_health_check(self):
-        self.flask_process = subprocess.Popen(
-                ["python", "Bot/health.py", "run", "--host=0.0.0.0", "--port=8443"]
-            )
+        # self.flask_process = subprocess.Popen(
+        #         ["python", "Bot/health.py", "run", "--host=0.0.0.0", "--port=8443"]
+        #     )
+        def run_flask():
+            app.run(host="0.0.0.0", port=8443, use_reloader=False)
+
+        self.flask_thread = Thread(target=run_flask)
+        self.flask_thread.start()
         # thread = Thread(target=run_gunicorn)
         # Start Flask app in a new thread
         # thread = Thread(target=lambda: app.run(host="0.0.0.0", port=8443, use_reloader=False))
