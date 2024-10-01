@@ -19,12 +19,12 @@ class _Bot(Client):
         )
         self.wabot = None 
     async def start(self):
-        await asyncio.create_task(self.pass_health_check())
         self.wabot = await StartWaClient(self)
         setattr(self, 'wabot', self.wabot)
         await super().start()
         self._bot = await self.get_me()
         print(f"{self._bot.first_name} - @{self._bot.username} Started")
+        await asyncio.create_task(self.pass_health_check())
     async def pass_health_check(self):
         subprocess.Popen(["node", "Bot/WaClient/health.js"])
 
