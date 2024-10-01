@@ -8,4 +8,4 @@ RUN apt-get update && apt-get install -y curl && \
     npm install -g npm@latest
 RUN npm install
 
-EXPOSE 8000
+EXPOSE 8443
