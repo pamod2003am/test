@@ -6,7 +6,7 @@ from .Config import TOKEN , API_ID , API_HASH
 import asyncio
 from threading import Thread
 from flask import Flask
-
+import os
 app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
