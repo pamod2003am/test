@@ -6,6 +6,14 @@ from .Config import TOKEN , API_ID , API_HASH
 import subprocess
 import asyncio
 import os
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/health", methods=["GET"])
+def health():
+    return "OK", 200
+
 
 class _Bot(Client):
     def __init__(self):
@@ -25,14 +33,14 @@ class _Bot(Client):
         self._bot = await self.get_me()
         print(f"{self._bot.first_name} - @{self._bot.username} Started")
         await asyncio.create_task(self.pass_health_check())
+        
     async def pass_health_check(self):
-        subprocess.Popen(["node", "Bot/WaClient/health.js"])
+        # subprocess.Popen(["node", "Bot/WaClient/health.js"])
+        app.run(port=8443)
 
     async def stop(self, *args):
         print(f"{self._bot.first_name} - @{self._bot.username} Stoped")
         await super().stop()
 
 _Bot().run()
-
-
 
