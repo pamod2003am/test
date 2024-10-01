@@ -2,8 +2,12 @@ FROM python:3.12.6
 WORKDIR /app
 
 COPY . .
-CMD ["python", "-m" , "venv" , ".venv"]
-CMD [".", ".venv/bin/activate"]
+# CMD ["python", "-m" , "venv" , ".venv"]
+# CMD [".", ".venv/bin/activate"]
+
+RUN python -m venv .venv && \
+    . .venv/bin/activate && \
+    pip install --no-cache-dir -r requirements.txt
 
 RUN pip install --no-cache-dir -r requirements.txt
 RUN apt-get update && apt-get install -y curl && \
