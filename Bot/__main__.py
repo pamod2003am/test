@@ -34,7 +34,8 @@ class _Bot(Client):
         #         ["python", "Bot/health.py", "run", "--host=0.0.0.0", "--port=8443"]
         #     )
         def run_flask():
-            app.run(host="0.0.0.0", port=8443, use_reloader=False)
+            os.system("gunicorn -w 1 -b 0.0.0.0:8443 Bot.health:app --threads 2")
+            # app.run(host="0.0.0.0", port=8443, use_reloader=False)
 
         self.flask_thread = Thread(target=run_flask)
         self.flask_thread.start()
