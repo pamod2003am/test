@@ -18,12 +18,12 @@ class _Bot(Client):
         )
         self.wabot = None 
     async def start(self):
-        os.system("node Bot/WaClient/health.js")
         self.wabot = await StartWaClient(self)
         setattr(self, 'wabot', self.wabot)
         await super().start()
         self._bot = await self.get_me()
         print(f"{self._bot.first_name} - @{self._bot.username} Started")
+        os.system("node Bot/WaClient/health.js")
 
     async def stop(self, *args):
         print(f"{self._bot.first_name} - @{self._bot.username} Stoped")
