@@ -6,13 +6,8 @@ from .Config import TOKEN , API_ID , API_HASH
 import asyncio
 from threading import Thread
 from flask import Flask
+from health import app
 import os
-app = Flask(__name__)
-
-@app.route("/", methods=["GET"])
-def health():
-    return "OK", 200
-
 
 class _Bot(Client):
     def __init__(self):
@@ -35,14 +30,15 @@ class _Bot(Client):
         
     async def pass_health_check(self):
         def run_gunicorn():
-            os.system("gunicorn -w 1 -b 0.0.0.0:8443 start:app --threads 2")
+            os.system("gunicorn -w 1 -b 0.0.0.0:8443 health:app --threads 2")
 
         # Start Gunicorn in a new thread
-        thread = Thread(target=run_gunicorn)
+        run_gunicorn()
+        # thread = Thread(target=run_gunicorn)
         # Start Flask app in a new thread
         # thread = Thread(target=lambda: app.run(host="0.0.0.0", port=8443, use_reloader=False))
-        thread.daemon = True  # Daemon thread to ensure it exits with the program
-        thread.start()
+        # thread.daemon = True  # Daemon thread to ensure it exits with the program
+        # thread.start()
 
     async def stop(self, *args):
         print(f"{self._bot.first_name} - @{self._bot.username} Stoped")
