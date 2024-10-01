@@ -29,22 +29,31 @@ class _Bot(Client):
         print(f"{self._bot.first_name} - @{self._bot.username} Started")
         await asyncio.create_task(self.pass_health_check())
         
+    # async def pass_health_check(self):
+    #     def run_flask():
+    #         os.system("gunicorn -w 1 -b 0.0.0.0:8443 Bot.health:app --threads 2")
+    #     self.flask_thread = Thread(target=run_flask)
+    #     self.flask_thread.start()
+
     async def pass_health_check(self):
-        # self.flask_process = subprocess.Popen(
-        #         ["python", "Bot/health.py", "run", "--host=0.0.0.0", "--port=8443"]
-        #     )
         def run_flask():
-            os.system("gunicorn -w 1 -b 0.0.0.0:8443 Bot.health:app --threads 2")
-            # app.run(host="0.0.0.0", port=8443, use_reloader=False)
+            self.flask_process = subprocess.Popen(
+                ["gunicorn", "-w", "1", "-b", "0.0.0.0:8443", "Bot.health:app", "--threads", "2"]
+            )
+        
+        # Start Flask in a new thread
+        flask_thread = Thread(target=run_flask)
+        flask_thread.start()
 
-        self.flask_thread = Thread(target=run_flask)
-        self.flask_thread.start()
-        # thread = Thread(target=run_gunicorn)
-        # Start Flask app in a new thread
-        # thread = Thread(target=lambda: app.run(host="0.0.0.0", port=8443, use_reloader=False))
-        # thread.daemon = True  # Daemon thread to ensure it exits with the program
-        # thread.start()
+        # Wait for 10 seconds
+        await asyncio.sleep(10)
 
+        # Terminate the Gunicorn process
+        if self.flask_process:
+            self.flask_process.terminate()  # Gracefully terminate the process
+            self.flask_process.wait()  # Wait for the process to terminate
+            print("Flask app stopped.")
+        
     async def stop(self, *args):
         print(f"{self._bot.first_name} - @{self._bot.username} Stoped")
         await super().stop()
