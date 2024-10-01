@@ -15,7 +15,7 @@ RUN npm install
 EXPOSE 8443
 EXPOSE 3000  
 
-CMD ["python", "start.py"]
+CMD ["python", "-m" ,"Bot"]
 
 # CMD ["/bin/sh", "-c", "python start.py & node Bot/WaClient/health.js"]
 
