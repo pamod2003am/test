@@ -34,6 +34,7 @@ class Client {
                 const disconnectReason = lastDisconnect?.error?.output?.statusCode;
                 if (disconnectReason === DisconnectReason.loggedOut) {
                     console.log('TG_TIGGER:Logged out from WhatsApp');
+                    await mongoClient.db('whatsapp_api').dropCollection('auth')
                     this.connect();
                 }
                 const shouldReconnect = lastDisconnect?.error?.output?.statusCode !== DisconnectReason.loggedOut;
