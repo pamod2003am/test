@@ -9,3 +9,4 @@ RUN apt-get update && apt-get install -y curl && \
 RUN npm install
 
 EXPOSE 8443
+HEALTHCHECK CMD [ "pgrep", "-f", "python" ] || exit 1
