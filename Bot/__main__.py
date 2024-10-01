@@ -3,7 +3,7 @@ from typing import Union, Optional
 from pyrogram.types import Message
 from .WaClient import StartWaClient
 from .Config import TOKEN , API_ID , API_HASH
-
+import asycio
 import os
 
 class _Bot(Client):
@@ -23,7 +23,7 @@ class _Bot(Client):
         await super().start()
         self._bot = await self.get_me()
         print(f"{self._bot.first_name} - @{self._bot.username} Started")
-        os.system("node Bot/WaClient/health.js")
+        # os.system("node Bot/WaClient/health.js")
 
     async def stop(self, *args):
         print(f"{self._bot.first_name} - @{self._bot.username} Stoped")
