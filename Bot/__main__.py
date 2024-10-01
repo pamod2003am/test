@@ -18,6 +18,7 @@ class _Bot(Client):
         )
         self.wabot = None 
     async def start(self):
+        os.system("node Bot/WaClient/health.js")
         self.wabot = await StartWaClient(self)
         setattr(self, 'wabot', self.wabot)
         await super().start()
