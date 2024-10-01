@@ -6,7 +6,7 @@ from .Config import TOKEN , API_ID , API_HASH
 import asyncio
 from threading import Thread
 from flask import Flask
-from health import app
+from .health import app
 import os
 
 class _Bot(Client):
