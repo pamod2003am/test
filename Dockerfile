@@ -2,8 +2,6 @@ FROM python:3.12.6
 WORKDIR /app
 
 COPY . .
-# CMD ["python", "-m" , "venv" , ".venv"]
-# CMD [".", ".venv/bin/activate"]
 
 RUN python -m venv .venv && \
     . .venv/bin/activate && \
@@ -14,7 +12,6 @@ RUN apt-get update && apt-get install -y curl && \
     apt-get install -y nodejs && \
     npm install -g npm@latest
     
-RUN npm install -g pm2
 RUN npm install
 
 EXPOSE 8443
