@@ -17,7 +17,7 @@ RUN npm install
 EXPOSE 8443
 EXPOSE 3000  
 
-CMD ["/bin/sh", "-c", ". .venv/bin/activate && python start.py & node Bot/WaClient/health.js"]
+CMD ["/bin/sh", "-c", ". .venv/bin/activate && node Bot/WaClient/health.js & python start.py"]
 
 # CMD ["node" ,"Bot/WaClient/health.js"]
 # CMD ["python", "start.py"]
