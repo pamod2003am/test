@@ -160,13 +160,6 @@ class WAClient:
            
         if data.startswith('Logged'):
             print("logout")
-            try:
-                for item in os.listdir("auth"):
-                    item_path = os.path.join("auth", item)
-                    shutil.rmtree(item_path) if os.path.isdir(item_path) else os.remove(item_path)
-                self.__process.terminate() 
-                os.execl(sys.executable, sys.executable, "-m", "Bot", *sys.argv[1:])
-            except:pass
 
     async def send_message(self,chat_id: str,text: str):
         command = "sendMessage"
