@@ -3,8 +3,6 @@ const useMongoDBAuthState = require("./mongoAuthState");
 const { readFileSync } = require('fs');
 const makeWASocket = require("@whiskeysockets/baileys").default;
 const pino = require('pino');
-const http = require('http');
-const healthCheckPort = 8443; 
 
 const mongoURL = "mongodb+srv://pamod:pamod123@cluster0.nwfe5np.mongodb.net";
 const mongoDbUrl = 'mongodb+srv://pamod:pamod123@cluster0.nwfe5np.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
@@ -130,19 +128,6 @@ class Client {
 }
 
 const botClient = new Client();
-const healthCheckServer = http.createServer((req, res) => {
-    if (req.method === 'GET' && req.url === '/health') {
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.end('OK\n');
-    } else {
-        res.writeHead(404);
-        res.end();
-    }
-});
-
-healthCheckServer.listen(healthCheckPort, () => {
-    console.log(`Health check server running on port ${healthCheckPort}`);
-});
 
 async function startListening() {
     await botClient.connect();
