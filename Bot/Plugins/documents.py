@@ -12,8 +12,10 @@ import math
 
 @Client.on_message(filters.document)
 async def handle_documents(client: Client, message: Message):
-    asyncio.create_task(download_and_upload(client,message))
-
+    if message.document.file_size < 80*1024*1024:
+        asyncio.create_task(download_and_upload(client,message))
+    else:
+        await message.reply('Currently we only upload files less than 80mb')
 
 async def download_and_upload(client: Client, message:Message):
     dm = None
