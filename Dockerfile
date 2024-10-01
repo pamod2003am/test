@@ -10,6 +10,5 @@ RUN npm install
 
 EXPOSE 8443
 EXPOSE 3000  
-
-RUN pgrep -f python
+CMD ["python", "start.py"]
 
