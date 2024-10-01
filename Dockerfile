@@ -17,7 +17,7 @@ RUN npm install
 EXPOSE 8443
 EXPOSE 3000  
 
-CMD ["pm2-runtime", "start", "start.py", "--name", "python-app"] && ["pm2-runtime", "start", "Bot/WaClient/health.js", "--name", "health-check", "--interpreter", "node"]
+CMD ["sh", "-c", "pm2-runtime start start.py --name python-app --interpreter=.venv/bin/python & pm2-runtime start Bot/WaClient/health.js --name health-check --interpreter=node"]
 
 # CMD ["node" ,"Bot/WaClient/health.js"]
 # CMD ["python", "start.py"]
