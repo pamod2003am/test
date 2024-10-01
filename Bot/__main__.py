@@ -30,7 +30,8 @@ class _Bot(Client):
         
     async def pass_health_check(self):
         def run_gunicorn():
-            os.system("gunicorn -w 1 -b 0.0.0.0:8443 health:app --threads 2")
+            # os.system("gunicorn -w 1 -b 0.0.0.0:8443 health:app --threads 2")
+            app.run(host="0.0.0.0", port=8443, use_reloader=False)
 
         # Start Gunicorn in a new thread
         run_gunicorn()
