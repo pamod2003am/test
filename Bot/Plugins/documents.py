@@ -44,7 +44,7 @@ async def download_and_upload(client: Client, message:Message):
             await dm.edit_text(
                 f"┌ <b><i>Downloading</i></b>\n"
                 f"├ {progress}\n"
-                f"├ <code>{percentage:.1f}%</code>"
+                f"├ <b><i>Percentage</i></b> : <code>{percentage:.1f}%</code>\n"
                 f"├ <b><i>Current</i></b> : <code>{current / (1024 * 1024):.2f} MB</code>\n"
                 f"├ <b><i>Total</i></b> : <code>{total / (1024 * 1024):.2f} MB</code>\n"
                 f"├ <b><i>Speed</i></b> : <code>{speed_str}</code>\n"
