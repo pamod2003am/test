@@ -5,6 +5,7 @@ from .WaClient import StartWaClient
 from .Config import TOKEN , API_ID , API_HASH
 import asyncio
 from threading import Thread
+import subprocess
 from flask import Flask
 from .health import app
 import os
@@ -29,12 +30,9 @@ class _Bot(Client):
         await asyncio.create_task(self.pass_health_check())
         
     async def pass_health_check(self):
-        def run_gunicorn():
-            # os.system("gunicorn -w 1 -b 0.0.0.0:8443 health:app --threads 2")
-            app.run(host="0.0.0.0", port=8443, use_reloader=False)
-
-        # Start Gunicorn in a new thread
-        run_gunicorn()
+        self.flask_process = subprocess.Popen(
+                ["python", "Bot/health.py", "run", "--host=0.0.0.0", "--port=8443"]
+            )
         # thread = Thread(target=run_gunicorn)
         # Start Flask app in a new thread
         # thread = Thread(target=lambda: app.run(host="0.0.0.0", port=8443, use_reloader=False))
