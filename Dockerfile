@@ -3,9 +3,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN python -m venv .venv && \
-    . .venv/bin/activate && \
-    pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 RUN apt-get update && apt-get install -y curl && \
     curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
@@ -17,7 +15,7 @@ RUN npm install
 EXPOSE 8443
 EXPOSE 3000  
 
-CMD ["/bin/sh", "-c", ". .venv/bin/activate && node Bot/WaClient/health.js & python start.py"]
+CMD ["/bin/sh", "-c", "node Bot/WaClient/health.js & python start.py"]
 
 # CMD ["node" ,"Bot/WaClient/health.js"]
 # CMD ["python", "start.py"]
