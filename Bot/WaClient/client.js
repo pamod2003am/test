@@ -1,14 +1,24 @@
 const { DisconnectReason, useMultiFileAuthState ,Browsers} = require("@whiskeysockets/baileys");
+const useMongoDBAuthState = require("./mongoAuthState");
 const { readFileSync } = require('fs');
 const makeWASocket = require("@whiskeysockets/baileys").default;
 const pino = require('pino');
+
+
+const mongoURL = "mongodb+srv://pamod:pamod123@cluster0.nwfe5np.mongodb.net";
+const mongoDbUrl = 'mongodb+srv://pamod:pamod123@cluster0.nwfe5np.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const { MongoClient } = require("mongodb");
+
 
 class Client {
     constructor() {
         this.Bot = null;
     }
     async connect() {
-        const { state, saveCreds } = await useMultiFileAuthState('auth');
+        const mongoClient = new MongoClient(mongoDbUrl, {});
+        await mongoClient.connect();
+        const collection = mongoClient.db("whatsapp_api").collection("auth");
+        const { state, saveCreds } = await useMongoDBAuthState(collection);
         this.Bot = makeWASocket({
             logger: pino({ level: 'silent' }) ,
             printQRInTerminal: true,
