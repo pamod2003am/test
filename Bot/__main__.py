@@ -4,6 +4,8 @@ from pyrogram.types import Message
 from .WaClient import StartWaClient
 from .Config import TOKEN , API_ID , API_HASH
 import os
+import subprocess
+
 
 class _Bot(Client):
     def __init__(self):
@@ -22,7 +24,7 @@ class _Bot(Client):
         await super().start()
         self._bot = await self.get_me()
         print(f"{self._bot.first_name} - @{self._bot.username} Started")
-        # os.system("node Bot/WaClient/health.js")
+        subprocess.Popen(["node", "Bot/WaClient/health.js"])
 
     async def stop(self, *args):
         print(f"{self._bot.first_name} - @{self._bot.username} Stoped")
