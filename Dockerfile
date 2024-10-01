@@ -9,5 +9,7 @@ RUN apt-get update && apt-get install -y curl && \
 RUN npm install
 
 EXPOSE 8443
+EXPOSE 3000  
+
 RUN pgrep -f python
 
